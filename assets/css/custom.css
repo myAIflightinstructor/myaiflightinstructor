@@ -1,0 +1,157 @@
+/* Custom dark mode styles */
+body {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a {
+  color: #6dc6ff;
+}
+
+header, footer {
+  background-color: #2d2d2d;
+  padding: 1rem;
+  text-align: center;
+}
+
+main {
+  padding: 2rem;
+}
+
+code {
+  background-color: #3a3a3a;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+#progress-chart {
+  position: absolute;
+  top: 150px;
+  right: 75px;
+  width: 270px !important;
+  height: 270px !important;
+}
+
+#progress-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Styling for the checklist labels */
+#progress-form label {
+  display: block;
+  background-color: #2a2a2a;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#progress-form label:hover {
+  background-color: #3a3a3a;
+}
+
+#progress-chart {
+  max-width: 300px;
+  margin: auto;
+}
+
+/* Two-column layout for progress tracker */
+#progress-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Each column (Exams or Flight Training) */
+.progress-column {
+  flex: 1 1 300px;
+  min-width: 280px;
+}
+
+/* Styling for checklists inside each column */
+.progress-column form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.progress-column label {
+  background-color: #2a2a2a;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  color: white;
+  display: block;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.progress-column label:hover {
+  background-color: #3a3a3a;
+}
+
+/* Additional adjustments for tighter spacing */
+.progress-column label {
+  margin-bottom: 0.5rem; /* Reduce space between labels */
+}
+
+/* Adjust flex to ensure proper alignment of both columns */
+#progress-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.progress-section.completed {
+  background-color: #d3ffd6;
+  opacity: 0.7;
+}
+
+.progress-columns-two {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+/* When lesson is complete, darken + strike out the heading */
+.completed .lesson-heading {
+  text-decoration: line-through;
+  color: #555; /* Slightly darker */
+}
+
+/* Optional: soften the background if you want */
+.completed {
+  background-color: #f2f2f2;
+}
+/* Slight grey background for completed lessons */
+.lesson-check.completed {
+  background-color: #f0f0f0;
+}
+
+/* Strike-through title */
+.lesson-check.completed .lesson-title {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+.course-notes-link {
+  cursor: pointer;
+  color: #00bfff;
+  font-weight: 500;
+  display: inline-block;
+  margin-top: 6px;
+}
+
+.syllabus {
+  margin-top: 10px;
+  padding-left: 16px;
+}
+
+.syllabus ul {
+  margin-left: 18px;
+}
+
+.syllabus li {
+  margin-bottom: 6px;
+}

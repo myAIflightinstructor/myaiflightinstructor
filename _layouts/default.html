@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <header>
+      <div style="display: flex; justify-content: space-between; align-items: center; background-color: #1a1a1a; padding: 1rem;">
+        <h1 style="color: white; margin: 0;">{{ site.title }}</h1>
+        <a href="/instructor-login" style="background-color: #38a169; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;">
+          Instructor Login
+        </a>
+      </div>
+    </header>
+
+    <main style="padding: 2rem;">
+      {% if page.title == "Home" %}
+        <!-- Select Your Course only for homepage -->
+        <h2>Select Your Course</h2>
+        <ul>
+          <li><a href="/ppl">Private Pilot Licence (PPL)</a></li>
+          <li><a href="/cpl">Commercial Pilot Licence (CPL)</a></li>
+          <li><a href="/atpl">Airline Transport Pilot Licence (ATPL)</a></li>
+          <li><a href="/drone">Drone Operator Certificate</a></li>
+        </ul>
+      {% endif %}
+      {{ content }}
+    </main>
+
+    <footer style="text-align: center; padding: 1rem; background-color: #1a1a1a; color: white;">
+      <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
+    </footer>
+
+    <!-- Inline script for progress tracking -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const progressForm = document.getElementById('progress-form');
+        const progressChart = document.getElementById('progress-chart');
+        const checkboxes = document.querySelectorAll('.lesson-check');
+
+        const progressData = {
+          labels: ['Completed', 'Remaining'],
+          datasets: [{
+            data: [0, checkboxes.length],
+            backgroundColor: ['#6DCB8E', '#E0E0E0'], // soft green and light grey
+            borderWidth: 1
+          }]
+        };
+
+        const ctx = progressChart.getContext('2d');
+        const chart = new Chart(ctx, {
+          type: 'pie',
+          data: progressData,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top'
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (tooltipItem) {
+                    const label = tooltipItem.label || '';
+                    const value = tooltipItem.raw || 0;
+                    return `${label}: ${value} lesson${value !== 1 ? 's' : ''}`;
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        function updateChart() {
+          const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+          chart.data.datasets[0].data = [completed, checkboxes.length - completed];
+          chart.update();
+        }
+
+        checkboxes.forEach(cb => cb.addEventListener('change', updateChart));
+      });
+    </script>
+  </body>
+</html>
+<script>
+  function toggleSection(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.display = el.style.display === "none" ? "block" : "none";
+  }
+</script>

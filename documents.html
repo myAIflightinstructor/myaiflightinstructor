@@ -1,0 +1,72 @@
+---
+layout: default
+title: Documents
+---
+
+<h1>Documents</h1>
+<p>Track your license and medical certificate expiration dates below:</p>
+
+<h2>License Validity</h2>
+<p id="license-validity">License Expiry Date: <strong id="license-expiry-date">N/A</strong></p>
+
+<h2>Medical Validity</h2>
+<p id="medical-validity">Medical Expiry Date: <strong id="medical-expiry-date">N/A</strong></p>
+
+<hr>
+
+<script>
+// Function to calculate days remaining until expiry
+function calculateExpiryDays(expiryDate) {
+  const today = new Date();
+  const expiry = new Date(expiryDate);
+  const timeDiff = expiry - today;
+  const daysRemaining = Math.floor(timeDiff / (1000 * 3600 * 24)); // Convert milliseconds to days
+  return daysRemaining;
+}
+
+// Function to update expiry date warnings
+function updateExpiryWarnings() {
+  // License expiry
+  const licenseExpiryDate = document.getElementById('license-expiry-date').textContent;
+  if (licenseExpiryDate !== 'N/A') {
+    const licenseDaysRemaining = calculateExpiryDays(licenseExpiryDate);
+    const licenseValidity = document.getElementById('license-validity');
+
+    if (licenseDaysRemaining <= 0) {
+      licenseValidity.style.color = 'red'; // Red for expired
+      licenseValidity.innerHTML = `License Expiry Date: <strong>${licenseExpiryDate}</strong> (Expired)`;
+    } else if (licenseDaysRemaining <= 30) {
+      licenseValidity.style.color = 'orange'; // Orange for nearing expiry
+      licenseValidity.innerHTML = `License Expiry Date: <strong>${licenseExpiryDate}</strong> (Expiring soon)`;
+    } else {
+      licenseValidity.style.color = 'green'; // Green for valid
+      licenseValidity.innerHTML = `License Expiry Date: <strong>${licenseExpiryDate}</strong>`;
+    }
+  }
+
+  // Medical expiry
+  const medicalExpiryDate = document.getElementById('medical-expiry-date').textContent;
+  if (medicalExpiryDate !== 'N/A') {
+    const medicalDaysRemaining = calculateExpiryDays(medicalExpiryDate);
+    const medicalValidity = document.getElementById('medical-validity');
+
+    if (medicalDaysRemaining <= 0) {
+      medicalValidity.style.color = 'red'; // Red for expired
+      medicalValidity.innerHTML = `Medical Expiry Date: <strong>${medicalExpiryDate}</strong> (Expired)`;
+    } else if (medicalDaysRemaining <= 30) {
+      medicalValidity.style.color = 'orange'; // Orange for nearing expiry
+      medicalValidity.innerHTML = `Medical Expiry Date: <strong>${medicalExpiryDate}</strong> (Expiring soon)`;
+    } else {
+      medicalValidity.style.color = 'green'; // Green for valid
+      medicalValidity.innerHTML = `Medical Expiry Date: <strong>${medicalExpiryDate}</strong>`;
+    }
+  }
+}
+
+// Simulated example expiry dates (replace with actual data or form inputs)
+document.getElementById('license-expiry-date').textContent = '2025-05-01';  // Example expiry date
+document.getElementById('medical-expiry-date').textContent = '2025-04-25';  // Example expiry date
+
+// Update expiry warnings on page load
+window.onload = updateExpiryWarnings;
+</script>
